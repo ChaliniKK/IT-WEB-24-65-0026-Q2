@@ -1,0 +1,60 @@
+﻿@model IEnumerable<StudentManagementSystem.Models.Student>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Student List</h2>
+
+
+@using (Html.BeginForm("Index", "Students", FormMethod.Get))
+{
+    <div class="form-inline" style="margin-bottom: 15px;">
+        <div class="form-group">
+            @Html.TextBox("SearchString", ViewBag.CurrentFilter as string,
+                new { @class = "form-control", placeholder = "Search by name..." })
+            <input type="submit" value="Search" class="btn btn-default" />
+        </div>
+        @Html.ActionLink("Clear", "Index", null, new { @class = "btn btn-link" })
+    </div>
+}
+
+<p>
+    @Html.ActionLink("Create New Student", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Course.Name)
+        </th>
+        <th>
+            @Html.ActionLink("Student Name", "Index",
+                new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.StudentId }, new { @class = "btn btn-xs btn-warning" })
+                @Html.ActionLink("Details", "Details", new { id = item.StudentId }, new { @class = "btn btn-xs btn-info" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.StudentId }, new { @class = "btn btn-xs btn-danger" })
+            </td>
+        </tr>
+    }
+</table>

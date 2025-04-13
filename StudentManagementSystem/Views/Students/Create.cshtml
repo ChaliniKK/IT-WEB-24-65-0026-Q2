@@ -1,0 +1,75 @@
+﻿@model StudentManagementSystem.Models.Student
+
+@{
+    ViewBag.Title = "Create New Student";
+}
+
+<div class="container mt-4">
+    <h2 class="text-primary">Create New Student</h2>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Error!</strong> @ViewBag.Error
+        </div>
+    }
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal border p-4 rounded bg-light">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <!-- Name Field -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2 font-weight-bold" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g. John Smith" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- City Field -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2 font-weight-bold" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g. New York" } })
+                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Course Dropdown -->
+            <div class="form-group row">
+                @Html.LabelFor(model => model.CourseId, "Course", htmlAttributes: new { @class = "control-label col-md-2 font-weight-bold" })
+                <div class="col-md-10">
+                    @Html.DropDownList("CourseId", null, "-- Select Course --", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="submit" class="btn btn-success px-4">
+                        <i class="fas fa-save"></i> Create
+                    </button>
+                    @Html.ActionLink(" Back to List", "Index", null, new { @class = "btn btn-outline-primary ml-2" })
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            // Auto-close alerts after 5 seconds
+            setTimeout(function () {
+                $(".alert").alert('close');
+            }, 5000);
+        });
+    </script>
+}

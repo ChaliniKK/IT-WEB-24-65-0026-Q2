@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="container text-center mt-5">
+    <h1 class="display-4 text-primary">🎓 Student Manager</h1>
+    <p class="lead mt-3">
+        Welcome to your student management system!
+    </p>
+    <div class="mt-4">
+        <a href="@Url.Action("Index", "Students")" class="btn btn-primary btn-lg mx-2">
+            <i class="fas fa-users"></i> Students
+        </a>
+        <a href="@Url.Action("Index", "Courses")" class="btn btn-outline-primary btn-lg mx-2">
+            <i class="fas fa-book"></i> Courses
+        </a>
+    </div>
+</div>
+
